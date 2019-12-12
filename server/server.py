@@ -9,8 +9,11 @@ def hello():
 
 @app.route('/jivosite', methods=['POST'])
 def log_all_webhooks():
-    print(request.form)
+    print(1, request.form)
+    print(2, request.args)
+    print(3, request.values)
+    print(4, request.json)
     return {"result": "ok"}
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80) #run app in debug mode on port 5000
+    app.run(debug=True, port=80, host="0.0.0.0") #run app in debug mode on port 5000
