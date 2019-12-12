@@ -16,7 +16,7 @@ def log_all_webhooks():
     return {"result": "ok"}
 
 @app.route('/livechat', methods=['POST', 'GET'])
-def log_all_webhooks():
+def livechat():
     print(1, request.form)
     print(2, request.args)
     print(3, request.values)
