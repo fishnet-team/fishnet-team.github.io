@@ -22,7 +22,7 @@ class Bot:
         data = {'name': name,
                 'status': 'accepting chats',
                 'default_group_priority': 'first',
-                add_user_to_chat'webhooks': [
+                'webhooks': [
                     {'action': 'incoming_chat_thread', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_chat_thread'},
                     {'action': 'thread_closed', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/thread_closed'},
                     {'action': 'incoming_event', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_event'}

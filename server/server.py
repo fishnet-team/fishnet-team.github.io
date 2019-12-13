@@ -23,7 +23,7 @@ def bot_incoming_chat_thread():
     return {"result": "ok"}
 
 @app.route(f'{BOT_ROOT}/thread_closed')
-def bot_thread_closed():178.128.196.165
+def bot_thread_closed():
     print(request.json)
     return {"result": "ok"}
 
