@@ -49,5 +49,5 @@ class Bot:
         self.send_message(chat_id, "Your message is " + message)
 
     def __str__(self):
-        return f"Bot\{id={self.id}, name={self.name}\}"
+        return "Bot{id=" + str(self.id) + "name=" + str(self.name) + "}"
     __repr__ = __str__
