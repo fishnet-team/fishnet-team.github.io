@@ -29,6 +29,7 @@ class Bot:
                 ]}
         # ['chat_user_added', 'chat_user_removed', 'event_updated']
         resp = self.action('create_bot_agent', data)
+        print(resp.json())
         self.id = resp.json()['bot_agent_id']
 
     def __del__(self):
