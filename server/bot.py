@@ -69,7 +69,7 @@ class Bot:
 
     def send_message(self, chat_id, text):
         url = "https://api.livechatinc.com/v3.1/agent/action/send_event"
-        return rq.post(url, headers=headers, json={'chat_id': chat_id, 'event': {
+        return rq.post(url, headers=self.headers, json={'chat_id': chat_id, 'event': {
            "type": "message",
            "text": text,
            "recipients": "all"
