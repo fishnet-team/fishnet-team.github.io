@@ -42,7 +42,7 @@ def bot_incoming_event():
     print(3, request.values)
     print(4, request.json)
     assert(request.json['secret_key'] == autofaq.SECRET_TOKEN)
-    autofaq.process(request.json['payload']['event'])
+    autofaq.process(request.json['payload']['event'], request.json['payload']['chat_id'])
     return {"result": "ok"}
 
 '''

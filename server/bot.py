@@ -88,10 +88,9 @@ class Bot:
         print(event)
         return True
 
-    def process(self, event):
+    def process(self, event, chat_id):
         eid = event['id']
         if eid not in self.processed and self.check_if_customers_message(event):
-            chat_id = event['chat_id']
             text = event['text'] # Other types are not supported
             autofaq.processed.add(eid)
             autofaq.answer(message=text, chat_id=chat_id)
