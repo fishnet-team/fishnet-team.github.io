@@ -34,7 +34,7 @@ class Bot:
             print('REAL TOKEN: ', token)
             self.TOKEN = token
             self.headers['Authorization'] = f'Bearer {token}'
-        self.processed = {}
+        self.processed = set()
 
         print(self.TOKEN)
         print(self.SECRET_TOKEN)
