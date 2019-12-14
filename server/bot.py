@@ -34,6 +34,7 @@ class Bot:
             print('REAL TOKEN: ', token)
             self.TOKEN = token
             self.headers['Authorization'] = f'Bearer {token}'
+        self.processed = {}
 
         print(self.TOKEN)
         print(self.SECRET_TOKEN)
@@ -76,7 +77,8 @@ class Bot:
         }})
 
     def answer(self, message, chat_id):
-        self.send_message(chat_id, "Your message is " + message)
+        res = self.send_message(chat_id, "Your message is " + message).json()
+        self.processed.add(res['event_id'])
 
     def __str__(self):
         return "Bot{id=" + str(self.id) + "name=" + str(self.name) + "}"
