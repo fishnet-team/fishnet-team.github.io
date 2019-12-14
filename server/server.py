@@ -9,6 +9,9 @@ CLIENT_SECRET = "89169aa794afcc0463262a20631ed101"
 ACCESS_TOKEN = "dal%3AWuHHLVdeTcGdmweUj6NsVA"
 autofaq = None
 
+agent_ids = set()
+active_agent_ids = set()
+
 @app.route('/')
 def hello():
     name = request.args.get("name", "World")
@@ -39,12 +42,7 @@ def bot_incoming_event():
     print(3, request.values)
     print(4, request.json)
     assert(request.json['secret_key'] == autofaq.SECRET_TOKEN)
-    eid = request.json['payload']['event']['id']
-    if eid not in autofaq.processed:
-        chat_id = request.json['payload']['chat_id']
-        text = request.json['payload']['event']['text'] # Other types are not supported
-        autofaq.processed.add(eid)
-        autofaq.answer(message=text, chat_id=chat_id)
+    autofaq.process(request.json['payload']['event'])
     return {"result": "ok"}
 
 @app.route('/oauth2')
@@ -85,4 +83,6 @@ if __name__ == '__main__':
         redirect_user()
     else:
         autofaq = bot.Bot('Cerebra AutoFAQ', SERVER_URL + BOT_ROOT, ACCESS_TOKEN)
+        autofaq.get_all_agents()
+        exit(0)
     app.run(debug=True, port=80, host="0.0.0.0") #run app in debug mode on port 5000
