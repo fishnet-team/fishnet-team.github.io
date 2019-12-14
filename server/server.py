@@ -70,8 +70,8 @@ def livechat():
     return {"result": "ok"}
 
 def redirect_user():
-    url = f"https://accounts.livechatinc.com/?response_type=code&client_id={CLIENT_ID}"
-           "&redirect_uri=http%3A%2F%2F178.128.196.165/oauth2/"
+    url = f"https://accounts.livechatinc.com/?response_type=code&client id={CLIENT_ID}" \
+           "&redirect uri=http%3A%2F%2F178.128.196.165/oauth2/"
     print(f"Go To: {url}")
 
 if __name__ == '__main__':
