@@ -12,6 +12,16 @@ class Bot:
     #           'X-Region': 'fra header',
                }
 
+    def kill_others(self):
+        print('Kill others')
+        resp = self.action('get_bot_agents', {'all': True}).json()
+        print(resp)
+        for el in resp['bot_agents']:
+            if el['id'] != self.id:
+                print(el['id'])
+                self.action('remove_bot_agent', {'bot_agent_id': el['id']})
+
+
     def action(self, action, data):
         url = f'https://api.livechatinc.com/v3.1/configuration/action/{action}'
         return rq.post(url, json=data, headers=self.headers)
@@ -29,14 +39,18 @@ class Bot:
         print(self.SECRET_TOKEN)
 
         self.name = name
-        data = {'name': name,
-                'status': 'accepting chats',
-                'default_group_priority': 'first',
+        webhooks = {'url': f'{self.URL}/incoming_event',
+                    'secret_key': self.SECRET_TOKEN,
+                    'actions': [{'name': 'incoming_event'}]}
         #        'webhooks': {
         #            {'actions': 'incoming_chat_thread', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_chat_thread'},
         #            {'action': 'thread_closed', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/thread_closed'},
         #            {'action': 'incoming_event', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_event'}
         #        }
+        data = {'name': name,
+                'status': 'accepting chats',
+                'default_group_priority': 'first',
+                'webhooks': webhooks
                 }
         print(self.headers)
         print(data)
@@ -44,6 +58,8 @@ class Bot:
         resp = self.action('create_bot_agent', data)
         print(resp.json())
         self.id = resp.json()['bot_agent_id']
+
+        self.kill_others()
 
     def __del__(self):
         self.action('remove_bot_agent', self.id)
