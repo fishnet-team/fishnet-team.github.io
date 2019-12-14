@@ -1,5 +1,6 @@
 import requests as rq
 import json
+import urllib
 
 class Bot:
     TOKEN = "261ee9feef5e0a62fe03ff7a2ee7382f"
@@ -8,7 +9,7 @@ class Bot:
 
     headers = {'content-type': 'application/json',
                'Authorization': f'Bearer {TOKEN}',
-               'X-Region': 'fra header',
+    #           'X-Region': 'fra header',
                }
 
     def action(self, action, data):
@@ -19,17 +20,26 @@ class Bot:
         if url is not None:
             self.URL = url
         if token is not None:
+            token = urllib.parse.unquote(token)
+            print('REAL TOKEN: ', token)
             self.TOKEN = token
+            self.headers['Authorization'] = f'Bearer {token}'
+
+        print(self.TOKEN)
+        print(self.SECRET_TOKEN)
 
         self.name = name
         data = {'name': name,
                 'status': 'accepting chats',
                 'default_group_priority': 'first',
-                'webhooks': [
-                    {'action': 'incoming_chat_thread', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_chat_thread'},
-                    {'action': 'thread_closed', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/thread_closed'},
-                    {'action': 'incoming_event', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_event'}
-                ]}
+        #        'webhooks': {
+        #            {'actions': 'incoming_chat_thread', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_chat_thread'},
+        #            {'action': 'thread_closed', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/thread_closed'},
+        #            {'action': 'incoming_event', 'secret_key': self.SECRET_TOKEN, 'url': f'{self.URL}/incoming_event'}
+        #        }
+                }
+        print(self.headers)
+        print(data)
         # ['chat_user_added', 'chat_user_removed', 'event_updated']
         resp = self.action('create_bot_agent', data)
         print(resp.json())
