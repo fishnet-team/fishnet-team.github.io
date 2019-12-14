@@ -22,19 +22,22 @@ def log_all_webhooks():
     print(4, request.json)
     return {"result": "ok"}
 
-@app.route(f'{BOT_ROOT}/incoming_chat_thread')
+@app.route(f'{BOT_ROOT}/incoming_chat_thread', methods=["POST"])
 def bot_incoming_chat_thread():
     print(request.json())
     return {"result": "ok"}
 
-@app.route(f'{BOT_ROOT}/thread_closed')
+@app.route(f'{BOT_ROOT}/thread_closed', methods=["POST"])
 def bot_thread_closed():
     print(request.json())
     return {"result": "ok"}
 
-@app.route(f'{BOT_ROOT}/incoming_event')
+@app.route(f'{BOT_ROOT}/incoming_event', methods=["POST"])
 def bot_incoming_event():
-    print(request.json())
+    print(1, request.form)
+    print(2, request.args)
+    print(3, request.values)
+    print(4, request.json)
     assert(request.json['secret_key'] == bot.SECRET_TOKEN)
     chat_id = request.json['payload']['chat_id']
     text = request.json['payload']['event']['text'] # Other types are not supported
