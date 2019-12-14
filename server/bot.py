@@ -15,9 +15,12 @@ class Bot:
         url = f'https://api.livechatinc.com/v3.1/configuration/action/{action}'
         return rq.post(url, json=data, headers=self.headers)
 
-    def __init__(self, name, url=None):
+    def __init__(self, name, url=None, token=None):
         if url is not None:
             self.URL = url
+        if token is not None:
+            self.TOKEN = token
+
         self.name = name
         data = {'name': name,
                 'status': 'accepting chats',
