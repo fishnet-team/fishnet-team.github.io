@@ -92,8 +92,8 @@ class Bot:
         eid = event['id']
         if eid not in self.processed and self.check_if_customers_message(event):
             text = event['text'] # Other types are not supported
-            autofaq.processed.add(eid)
-            autofaq.answer(message=text, chat_id=chat_id)
+            self.processed.add(eid)
+            self.answer(message=text, chat_id=chat_id)
 
     def redirect(self, to=None):
         assert(to is None)
