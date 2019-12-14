@@ -6,7 +6,7 @@ BOT_ROOT = "/bot"
 SERVER_URL = "http://178.128.196.165"
 CLIENT_ID = "261ee9feef5e0a62fe03ff7a2ee7382f"
 CLIENT_SECRET = "89169aa794afcc0463262a20631ed101"
-ACCESS_TOKEN = None
+ACCESS_TOKEN = "dal%3AWuHHLVdeTcGdmweUj6NsVA"
 autofaq = None
 
 @app.route('/')
