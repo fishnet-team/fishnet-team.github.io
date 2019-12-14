@@ -95,9 +95,11 @@ class Bot:
             self.processed.add(eid)
             self.answer(message=text, chat_id=chat_id)
 
-    def redirect(self, to=None):
+    def transfere(self, chat_id, to=None):
         assert(to is None)
-        pass
+        url = 'https://api.livechatinc.com/v3.1/agent/action/transfer_chat'
+        data = {'chat_id': chat_id}
+        rq.post(url, headers=self.headers, json=data)
 
     def send_message(self, chat_id, text):
         url = "https://api.livechatinc.com/v3.1/agent/action/send_event"
@@ -108,8 +110,15 @@ class Bot:
         }})
 
     def answer(self, message, chat_id):
-        res = self.send_message(chat_id, "Your message is " + message).json()
-        self.processed.add(res['event_id'])
+        if len(message) % 2 == 1:
+            res = self.send_message(chat_id, "Excuse me, I cannot understand odd messages. Let me call an expert").json()
+            if res['event_id']:
+                self.processed.add(res['event_id'])
+            self.transfere(chat_id)
+        else:
+            res = self.send_message(chat_id, "Your message is " + message).json()
+            if res['event_id']:
+                self.processed.add(res['event_id'])
 
     def __str__(self):
         return "Bot{id=" + str(self.id) + "name=" + str(self.name) + "}"
