@@ -39,7 +39,7 @@ def bot_incoming_event():
     print(3, request.values)
     print(4, request.json)
     assert(request.json['secret_key'] == autofaq.SECRET_TOKEN)
-    eid = request.json['payload']['id']
+    eid = request.json['payload']['event']['id']
     if eid not in autofaq.processed:
         chat_id = request.json['payload']['chat_id']
         text = request.json['payload']['event']['text'] # Other types are not supported
