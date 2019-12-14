@@ -45,6 +45,7 @@ def bot_incoming_event():
     autofaq.process(request.json['payload']['event'])
     return {"result": "ok"}
 
+'''
 @app.route('/oauth2')
 def auth():
     print(request.args)
@@ -63,7 +64,7 @@ def auth():
     global ACCESS_TOKEN, autofaq
     ACCESS_TOKEN = access_token
     autofaq = bot.Bot('Cerebra AutoFAQ', SERVER_URL + BOT_ROOT, ACCESS_TOKEN)
-
+'''
 
 @app.route('/livechat', methods=['POST', 'GET'])
 def livechat():
@@ -84,5 +85,5 @@ if __name__ == '__main__':
     else:
         autofaq = bot.Bot('Cerebra AutoFAQ', SERVER_URL + BOT_ROOT, ACCESS_TOKEN)
         autofaq.get_all_agents()
-        exit(0)
+        #exit(0)
     app.run(debug=True, port=80, host="0.0.0.0") #run app in debug mode on port 5000
