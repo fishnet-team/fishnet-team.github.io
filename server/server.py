@@ -38,10 +38,10 @@ def bot_incoming_event():
     print(2, request.args)
     print(3, request.values)
     print(4, request.json)
-    assert(request.json['secret_key'] == bot.SECRET_TOKEN)
+    assert(request.json['secret_key'] == autofaq.SECRET_TOKEN)
     chat_id = request.json['payload']['chat_id']
     text = request.json['payload']['event']['text'] # Other types are not supported
-    bot.answer(text=text, chat_id=chat_id)
+    autofaq.answer(text=text, chat_id=chat_id)
     return {"result": "ok"}
 
 @app.route('/oauth2')
